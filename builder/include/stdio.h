@@ -67,7 +67,15 @@ extern FILE *const stderr;
 #define stdout (stdout)
 #define stderr (stderr)
 
+For example:
 FILE *fopen(const char *__restrict, const char *__restrict);
+
+All inside a single wasm mod (for now)
+ -- would be translated to (the "how" details below)
+
+
+
+
 FILE *freopen(const char *__restrict, const char *__restrict, FILE *__restrict);
 int fclose(FILE *);
 
