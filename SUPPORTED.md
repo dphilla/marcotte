@@ -8,7 +8,7 @@ Which libc is this? TL;DR: it's a combo of mostly musl, some glibc, and other cr
 
 | Function              | Supported | Source                                   | Notes |
 |-----------------------|-----------|------------------------------------------|-------|
-| `socket()`            | ✅         | [header](sys/socket.h)/[src](src/network/socket.c) |       |
+| `socket()`            |Yes        | [header](sys/socket.h)/[src](src/network/socket.c) |       |
 | `bind()`              |           |                                          |       |
 | `connect()`           |           |                                          |       |
 | `listen()`            |           |                                          |       |
@@ -195,6 +195,216 @@ Which libc is this? TL;DR: it's a combo of mostly musl, some glibc, and other cr
 | `qsort()`             |           |              |       |                          |
 | `bsearch()`           |           |              |       |                          |
 |                       |           |              |       |                          |
+
+## Self-Contained (requires no kernel interactions.. mostly, ~400 functions)
+
+| Function            | Supported | Source                     | Notes                               | Original Reference      |
+|-----------|----------------------------|--------------------------------------|-------------------------|
+| `acos()`            | Yes       | src/math/acos.c           | C89 math                             | C89 / C99               |
+| `acosh()`           | Yes       | src/math/acosh.c          | C99 math                             | C99                     |
+| `asin()`            | Yes       | src/math/asin.c           | C89 math                             | C89 / C99               |
+| `asinh()`           | Yes       | src/math/asinh.c          | C99 math                             | C99                     |
+| `atan()`            | Yes       | src/math/atan.c           | C89 math                             | C89 / C99               |
+| `atan2()`           | Yes       | src/math/atan2.c          | C89 math                             | C89 / C99               |
+| `atanh()`           | Yes       | src/math/atanh.c          | C99 math                             | C99                     |
+| `cbrt()`            | Yes       | src/math/cbrt.c           | C99 math                             | C99                     |
+| `ceil()`            | Yes       | src/math/ceil.c           | C89 math                             | C89 / C99               |
+| `copysign()`        | Yes       | src/math/copysign.c       | C99 math                             | C99                     |
+| `cos()`             | Yes       | src/math/cos.c            | C89 math                             | C89 / C99               |
+| `cosf()`            | Yes       | src/math/cosf.c           | Float version                        | C99                     |
+| `cosh()`            | Yes       | src/math/cosh.c           | C89 math                             | C89 / C99               |
+| `exp()`             | Yes       | src/math/exp.c            | C89 math                             | C89 / C99               |
+| `fabs()`            | Yes       | src/math/fabs.c           | C89 math                             | C89 / C99               |
+| `floor()`           | Yes       | src/math/floor.c          | C89 math                             | C89 / C99               |
+| `fma()`             | Yes       | src/math/fma.c            | Fused multiply-add (C11)             | C99 / C11               |
+| `fmax()`            | Yes       | src/math/fmax.c           | C99 math                             | C99                     |
+| `fmin()`            | Yes       | src/math/fmin.c           | C99 math                             | C99                     |
+| `fmod()`            | Yes       | src/math/fmod.c           | C89 math                             | C89 / C99               |
+| `frexp()`           | Yes       | src/math/frexp.c          | C89 math                             | C89 / C99               |
+| `hypot()`           | Yes       | src/math/hypot.c          | C89 math                             | C89 / C99               |
+| `ilogb()`           | Yes       | src/math/ilogb.c          | C99 math                             | C99                     |
+| `ldexp()`           | Yes       | src/math/ldexp.c          | C89 math                             | C89 / C99               |
+| `log()`             | Yes       | src/math/log.c            | C89 math                             | C89 / C99               |
+| `log10()`           | Yes       | src/math/log10.c          | C89 math                             | C89 / C99               |
+| `log1p()`           | Yes       | src/math/log1p.c          | C99 math                             | C99                     |
+| `log2()`            | Yes       | src/math/log2.c           | C99 math                             | C99                     |
+| `logb()`            | Yes       | src/math/logb.c           | C99 math                             | C99                     |
+| `modf()`            | Yes       | src/math/modf.c           | C89 math                             | C89 / C99               |
+| `nearbyint()`       | Yes       | src/math/nearbyint.c      | C99 rounding                         | C99                     |
+| `pow()`             | Yes       | src/math/pow.c            | C89 math                             | C89 / C99               |
+| `remainder()`       | Yes       | src/math/remainder.c      | C99 math                             | C99                     |
+| `remquo()`          | Yes       | src/math/remquo.c         | C99 math                             | C99                     |
+| `round()`           | Yes       | src/math/round.c          | C99 rounding                         | C99                     |
+| `scalbn()`          | Yes       | src/math/scalbn.c         | C99 scaling                          | C99                     |
+| `signbit()`         | Yes       | (macro in <math.h>)       | Macro in many libs                   | C99 / builtin           |
+| `sin()`             | Yes       | src/math/sin.c            | C89 math                             | C89 / C99               |
+| `sinh()`            | Yes       | src/math/sinh.c           | C89 math                             | C89 / C99               |
+| `sqrt()`            | Yes       | src/math/sqrt.c           | C89 math                             | C89 / C99               |
+| `tan()`             | Yes       | src/math/tan.c            | C89 math                             | C89 / C99               |
+| `tanh()`            | Yes       | src/math/tanh.c           | C89 math                             | C89 / C99               |
+| `trunc()`           | Yes       | src/math/trunc.c          | C99 math                             | C99                     |
+| `memcpy()`          | Yes       | src/string/memcpy.c       | C89 string                           | C89                     |
+| `memmove()`         | Yes       | src/string/memmove.c      | C89 string                           | C89                     |
+| `memset()`          | Yes       | src/string/memset.c       | C89 string                           | C89                     |
+| `memcmp()`          | Yes       | src/string/memcmp.c       | C89 string                           | C89                     |
+| `memchr()`          | Yes       | src/string/memchr.c       | C89 string                           | C89                     |
+| `strcpy()`          | Yes       | src/string/strcpy.c       | C89 string                           | C89                     |
+| `strncpy()`         | Yes       | src/string/strncpy.c      | C89 string                           | C89                     |
+| `strcat()`          | Yes       | src/string/strcat.c       | C89 string                           | C89                     |
+| `strncat()`         | Yes       | src/string/strncat.c      | C89 string                           | C89                     |
+| `strcmp()`          | Yes       | src/string/strcmp.c       | C89 string                           | C89                     |
+| `strncmp()`         | Yes       | src/string/strncmp.c      | C89 string                           | C89                     |
+| `strchr()`          | Yes       | src/string/strchr.c       | C89 string                           | C89                     |
+| `strrchr()`         | Yes       | src/string/strrchr.c      | C89 string                           | C89                     |
+| `strstr()`          | Yes       | src/string/strstr.c       | C89 string                           | C89                     |
+| `strnlen()`         | Yes       | src/string/strnlen.c      | POSIX extension                      | POSIX / C99 extension   |
+| `strlen()`          | Yes       | src/string/strlen.c       | C89 string                           | C89                     |
+| `strdup()`          | Yes       | src/string/strdup.c       | POSIX extension                      | POSIX                   |
+| `strcasecmp()`      | Yes       | src/string/strcasecmp.c   | POSIX extension                      | POSIX                   |
+| `strtok()`          | Yes       | src/string/strtok.c       | C89 string                           | C89                     |
+| `strerror()`        | Yes       | src/string/strerror.c     | Maps error code to message           | C89 / POSIX (but no sys)|
+| `strxfrm()`         | Yes       | src/string/strxfrm.c      | Locale transform (pure userland)     | C89                     |
+| `bcmp()`            | Yes       | src/string/bcmp.c         | POSIX/BSD extension                  | POSIX/BSD               |
+| `bzero()`           | Yes       | src/string/bzero.c        | Deprecated BSD extension             | BSD                     |
+| `strcasecmp_l()`    | Yes       | src/string/strcasecmp_l.c | Locale version (still userland)      | POSIX locale extension  |
+| `strncasecmp()`     | Yes       | src/string/strncasecmp.c  | POSIX extension                      | POSIX                   |
+| `strncasecmp_l()`   | Yes       | src/string/strncasecmp_l.c| Locale version (still userland)      | POSIX locale extension  |
+| `strcoll()`         | Yes       | src/string/strcoll.c      | Locale compare (still userland)      | C89 / XSI              |
+| `wcscpy()`          | Yes       | src/wchar/wcscpy.c        | Wide char string                     | C95 / C99               |
+| `wcscmp()`          | Yes       | src/wchar/wcscmp.c        | Wide char string                     | C95 / C99               |
+| `wcscat()`          | Yes       | src/wchar/wcscat.c        | Wide char string                     | C95 / C99               |
+| `wcslen()`          | Yes       | src/wchar/wcslen.c        | Wide char string                     | C95 / C99               |
+| `wmemcmp()`         | Yes       | src/wchar/wmemcmp.c       | Wide char version of memcmp          | C95 / C99               |
+| `wmemcpy()`         | Yes       | src/wchar/wmemcpy.c       | Wide char version of memcpy          | C95 / C99               |
+| `btowc()`           | Yes       | src/ctype/btowc.c         | Single byte to wide char             | C95 / C99               |
+| `wctob()`           | Yes       | src/ctype/wctob.c         | Wide char to single byte             | C95 / C99               |
+| `isalpha()`         | Yes       | src/ctype/isalpha.c       | C89 ctype                            | C89                     |
+| `isdigit()`         | Yes       | src/ctype/isdigit.c       | C89 ctype                            | C89                     |
+| `isalnum()`         | Yes       | src/ctype/isalnum.c       | C89 ctype                            | C89                     |
+| `islower()`         | Yes       | src/ctype/islower.c       | C89 ctype                            | C89                     |
+| `isupper()`         | Yes       | src/ctype/isupper.c       | C89 ctype                            | C89                     |
+| `isblank()`         | Yes       | src/ctype/isblank.c       | C99 ctype extension                  | C99                     |
+| `isspace()`         | Yes       | src/ctype/isspace.c       | C89 ctype                            | C89                     |
+| `ispunct()`         | Yes       | src/ctype/ispunct.c       | C89 ctype                            | C89                     |
+| `iscntrl()`         | Yes       | src/ctype/iscntrl.c       | C89 ctype                            | C89                     |
+| `isxdigit()`        | Yes       | src/ctype/isxdigit.c      | C89 ctype                            | C89                     |
+| `isgraph()`         | Yes       | src/ctype/isgraph.c       | C89 ctype                            | C89                     |
+| `isprint()`         | Yes       | src/ctype/isprint.c       | C89 ctype                            | C89                     |
+| `tolower()`         | Yes       | src/ctype/tolower.c       | C89 ctype                            | C89                     |
+| `toupper()`         | Yes       | src/ctype/toupper.c       | C89 ctype                            | C89                     |
+| `toascii()`         | Yes       | src/ctype/toascii.c       | Non-standard/BSD macro               | BSD extension           |
+| `abs()`             | Yes       | src/stdlib/abs.c          | C89 stdlib                           | C89                     |
+| `labs()`            | Yes       | src/stdlib/labs.c         | C89 stdlib                           | C89                     |
+| `llabs()`           | Yes       | src/stdlib/llabs.c        | C99 stdlib                           | C99                     |
+| `atoi()`            | Yes       | src/stdlib/atoi.c         | C89 stdlib                           | C89                     |
+| `atol()`            | Yes       | src/stdlib/atol.c         | C89 stdlib                           | C89                     |
+| `atoll()`           | Yes       | src/stdlib/atoll.c        | C99 stdlib                           | C99                     |
+| `strtol()`          | Yes       | src/stdlib/strtol.c       | C89 stdlib                           | C89                     |
+| `strtoul()`         | Yes       | src/stdlib/strtoul.c      | C89 stdlib                           | C89                     |
+| `strtoll()`         | Yes       | src/stdlib/strtoll.c      | C99 stdlib                           | C99                     |
+| `strtoull()`        | Yes       | src/stdlib/strtoull.c     | C99 stdlib                           | C99                     |
+| `strtod()`          | Yes       | src/stdlib/strtod.c       | C89 stdlib                           | C89                     |
+| `strtof()`          | Yes       | src/stdlib/strtof.c       | C99 float parse                      | C99                     |
+| `strtold()`         | Yes       | src/stdlib/strtold.c      | C99 long double parse                | C99                     |
+| `calloc()`          | Yes       | src/stdlib/calloc.c       | Typically pure userland, though...   | (Implementation detail) |
+| `malloc()`          | ???       | src/malloc/ (uses brk/sbrk?) | *May or may not* use syscalls    | Implementation detail    |
+| `free()`            | ???       | src/malloc/ (free.c)      | Ties to memory arena, might call sbrk| Implementation detail    |
+| `realloc()`         | ???       | src/malloc/ (realloc.c)   | Possibly calls sbrk/mmap            | Implementation detail    |
+| `qsort()`           | Yes       | src/stdlib/qsort.c        | Pure user-level sort                | C89                     |
+| `bsearch()`         | Yes       | src/stdlib/bsearch.c      | Pure user-level search              | C89                     |
+| `div()`             | Yes       | src/stdlib/div.c          | Returns quotient/remainder struct   | C89                     |
+| `ldiv()`            | Yes       | src/stdlib/ldiv.c         | Long version                        | C89                     |
+| `lldiv()`           | Yes       | src/stdlib/lldiv.c        | Long long version                   | C99                     |
+| `mblen()`           | Yes       | src/stdlib/mblen.c        | Multi-byte to wide char logic       | C89 / locale            |
+| `mbtowc()`          | Yes       | src/stdlib/mbtowc.c       | Multi-byte to wide char             | C89 / locale            |
+| `wctomb()`          | Yes       | src/stdlib/wctomb.c       | Wide char to multi-byte             | C89 / locale            |
+| `rand()`            | Yes       | src/prng/rand.c           | Basic PRNG (not sysrandom)          | C89                     |
+| `srand()`           | Yes       | src/prng/rand.c           | Seeds the above PRNG                | C89                     |
+| `drand48()`         | Yes       | src/prng/drand48.c        | POSIX-ish random, purely userland   | POSIX                   |
+| `erand48()`         | Yes       | src/prng/erand48.c        | POSIX-ish random, purely userland   | POSIX                   |
+| `lcong48()`         | Yes       | src/prng/lcong48.c        | POSIX-ish random, purely userland   | POSIX                   |
+| `srand48()`         | Yes       | src/prng/srand48.c        | POSIX-ish random, purely userland   | POSIX                   |
+| `strsep()`          | Yes       | src/string/strsep.c       | Splits string by delimiter          | BSD/POSIX extension     |
+| `strsignal()`       | Yes       | src/string/strsignal.c    | Maps signal # to name (table-based) | POSIX (no syscalls)     |
+| `aligned_alloc()`   | ???       | src/stdlib/aligned_alloc.c| Usually pure userland + a backend   | C11, might call malloc  |
+| `wmemcmp()`         | Yes       | src/wchar/wmemcmp.c       | Compare wide strings                | C95 / C99               |
+| `wmemmove()`        | Yes       | src/wchar/wmemmove.c      | Wide char memmove                   | C95 / C99               |
+| `wcscmp()`          | Yes       | src/wchar/wcscmp.c        | Compare wide strings                | C95 / C99               |
+| `wcscspn()`         | Yes       | src/wchar/wcscspn.c       | Wide char strcspn analog            | C95 / C99               |
+| `wcsdup()`          | Yes       | src/wchar/wcsdup.c        | Wide char strdup                    | POSIX wide extension    |
+| `wcslcat()`         | ???       | Not always in standard    | BSD extension, if present           | BSD                     |
+| `wcslcpy()`         | ???       | Not always in standard    | BSD extension, if present           | BSD                     |
+| `wcstok()`          | Yes       | src/wchar/wcstok.c        | Wide char version of strtok         | C95 / C99               |
+| `vsnprintf()`       | Yes       | src/stdio/vsnprintf.c     | Print to string buffer (userland)   | C99                     |
+| `snprintf()`        | Yes       | src/stdio/snprintf.c      | Print to string buffer (userland)   | C99                     |
+| `sprintf()`         | Yes       | src/stdio/sprintf.c       | Print to string buffer (userland)   | C89                     |
+| `sscanf()`          | Yes       | src/stdio/sscanf.c        | Scan from string buffer (userland)  | C89                     |
+| `vfscanf()`         | ???       | Typically does read from FILE, might be sys if not careful | C89 |
+| `vsscanf()`         | Yes       | src/stdio/vsscanf.c       | Parse from memory buffer, userland  | C99                     |
+| `strcoll_l()`       | Yes       | src/string/strcoll_l.c    | Locale-based string compare         | XSI / POSIX extension   |
+| `strxfrm_l()`       | Yes       | src/string/strxfrm_l.c    | Locale-based transform              | XSI / POSIX extension   |
+| `wcscoll()`         | Yes       | src/wchar/wcscoll.c       | Wide char locale compare            | XSI / POSIX extension   |
+| `wcsxfrm()`         | Yes       | src/wchar/wcsxfrm.c       | Wide char locale transform          | XSI / POSIX extension   |
+| `wcwidth()`         | Yes       | src/ctype/wcwidth.c       | Width of wide char for display      | POSIX                   |
+| `wcswidth()`        | Yes       | src/wchar/wcswidth.c      | Width of wide string for display    | POSIX                   |
+| `ecvt()`, `fcvt()`  | ???       | src/stdio/ecvt.c,fcvt.c   | Obsolete float-to-string, userland  | Legacy (not always)     |
+| `gcvt()`            | ???       | src/stdio/gcvt.c          | Obsolete float-to-string, userland  | Legacy (not always)     |
+| `finite()`          | Yes       | src/math/finite.c         | Checks if float is finite           | POSIX / C99             |
+| `isinf()`           | Yes       | src/math/isinf.c          | Checks infinity                     | C99                     |
+| `isnan()`           | Yes       | src/math/isnan.c          | Checks NaN                          | C99                     |
+| `nextafter()`       | Yes       | src/math/nextafter.c      | Next representable float            | C99                     |
+| `fegetround()`      | ???       | src/fenv/fegetround.c     | Might use CPU instructions, no sys  | C99 / arch dependent    |
+| `fesetround()`      | ???       | src/fenv/fesetround.c     | Might use CPU instructions, no sys  | C99 / arch dependent    |
+| `feclearexcept()`   | ???       | src/fenv/feclearexcept.c  | CPU instructions, no sys            | C99 / arch dependent    |
+| `fegetexceptflag()` | ???       | src/fenv/fegetexceptflag.c| CPU instructions, no sys            | C99 / arch dependent    |
+| `fesetexceptflag()` | ???       | src/fenv/fesetexceptflag.c| CPU instructions, no sys            | C99 / arch dependent    |
+| `feraiseexcept()`   | ???       | src/fenv/feraiseexcept.c  | CPU instructions, no sys            | C99 / arch dependent    |
+| `fetestexcept()`    | ???       | src/fenv/fetestexcept.c   | CPU instructions, no sys            | C99 / arch dependent    |
+| `feholdexcept()`    | ???       | src/fenv/feholdexcept.c   | CPU instructions, no sys            | C99 / arch dependent    |
+| `feupdateenv()`     | ???       | src/fenv/feupdateenv.c    | CPU instructions, no sys            | C99 / arch dependent    |
+| `scalb()`, `scalbf()`| ???      | src/math/scalb.c, etc.    | Obsolete scale functions, userland  | Legacy / BSD            |
+| `gamma()`, `lgamma()`| Yes      | src/math/lgamma.c         | C99 / POSIX math                    | C99, might track sign   |
+| `tgamma()`          | Yes       | src/math/tgamma.c         | C99 math                            | C99                     |
+| `sincos()`          | ???       | src/math/sincos.c         | GNU extension, purely userland      | GNU ext                 |
+| `fenv` macros       | Yes/No    | <fenv.h> macros           | CPU instructions, no syscalls       | C99 / arch dependent    |
+| `drand48_r()` etc.  | Yes       | src/prng/drand48_r.c      | Reentrant versions, userland        | POSIX                   |
+| `nrand48()`         | Yes       | src/prng/nrand48.c        | Part of drand48 family, userland    | POSIX                   |
+| `lrand48()`         | Yes       | src/prng/lrand48.c        | Part of drand48 family, userland    | POSIX                   |
+| `mrand48()`         | Yes       | src/prng/mrand48.c        | Part of drand48 family, userland    | POSIX                   |
+| `iconv_*()`         | ???       | src/iconv/*               | Character set conversion, userland  | POSIX / XSI             |
+| `regex` routines    | ???       | src/regex/*               | Regex engine, purely userland       | POSIX                   |
+| `fnmatch()`         | ???       | src/fnmatch/fnmatch.c     | Filename matching, userland         | POSIX                   |
+| `glob()`            | ???       | src/glob/glob.c           | Shell-style path expansion (BUT might do readdir => can be sys)  | POSIX   |
+| `fmtmsg()`          | ???       | src/stdio/fmtmsg.c        | Formats messages (userland?), POSIX | POSIX                   |
+| `psiginfo()`        | ???       | src/signal/psiginfo.c     | Prints signal info (table-based)     | XSI, can be userland    |
+| `psignal()`         | ???       | src/signal/psignal.c      | Prints signal name from table        | XSI, userland           |
+| `argz_*()`, `envz_*()`| ???     | src/argz, src/envz        | GNU extensions, userland manip       | GNU/BSD ext             |
+| `obstack_*()`       | ???       | src/alloc/obstack.c       | GNU extension, userland             | GNU extension           |
+| `gnulib` style fns  | ???       | -                          | Various purely user-level expansions | GNU extension           |
+| `crypto` stubs?     | ???       | -                          | Some libs have userland crypto       | Implementation detail    |
+| `hsearch()`, `tsearch()` etc. | ??? | src/search/ (no syscalls) | POSIX tree/hashtable (userland) | POSIX                   |
+| `wctype()`          | Yes       | src/ctype/wctype.c        | Wide char classification, userland  | C95 / C99               |
+| `iswalpha()`, `iswdigit()`, etc.| Yes | `src/ctype/isw*.c`    | Wide char ctype family, userland    | C95 / C99               |
+| `towupper()`, `towlower()` | Yes | `src/ctype/tow*.c`         | Wide char transform, userland       | C95 / C99               |
+| `fmemopen()`        | ???       | src/stdio/fmemopen.c      | Opens a memory buffer as `FILE*`, purely userland if done carefully  | POSIX |
+| `open_memstream()`  | ???       | src/stdio/open_memstream.c| Another memory-based stream, userland| POSIX                   |
+| `asprintf()`        | ???       | src/stdio/asprintf.c      | Alloc-based sprintf (calls malloc)   | GNU/BSD ext             |
+| `dprintf()`         | ???       | src/stdio/dprintf.c       | Writes to FD (=> might do syscalls)  | POSIX                   |
+| `vasprintf()`       | ???       | src/stdio/vasprintf.c     | Alloc-based vsnprintf (calls malloc) | GNU/BSD ext             |
+| `vdprintf()`        | ???       | src/stdio/vdprintf.c      | Writes to FD (=> might do syscalls)  | POSIX                   |
+| `strtoimax()`, `strtoumax()`|Yes| src/stdlib/strtoimax.c, etc. | Integer parse, userland           | C99 / inttypes.h        |
+| `imaxabs()`, `imaxdiv()` |Yes   | src/stdlib/imaxabs.c etc.  | intmax_t versions, userland         | C99 / inttypes.h        |
+| `wcstod()`, `wcstof()`, `wcstold()`|Yes| src/wchar/wcstod.c etc.| Wide char to double float parse     | C99                     |
+| `wcstoimax()`, `wcstoumax()`|Yes| src/wchar/wcstoimax.c etc.| Wide char integer parse, userland   | C99 / inttypes.h        |
+| `mbsinit()`         | Yes       | src/multibyte/mbsinit.c   | Checks if multibyte state is initial| C99                     |
+| `mbrlen()`, `mbrtowc()`, `wcrtomb()` |Yes| src/multibyte/        | Multi-byte state conversions        | C99 locale              |
+| `strcoll()`         | Yes       | src/string/strcoll.c      | Locale compare, userland            | C89 / XSI               |
+| `strftime()`        | ???       | src/time/strftime.c       | Formats time as string (no syscalls unless locale loading) | C89/XSI |
+| `strptime()`        | ???       | src/time/strptime.c       | Parse time from string (userland)   | XSI / POSIX extension   |
+| `wcsftime()`        | ???       | src/time/wcsftime.c       | Wide-char time format (userland)    | XSI / POSIX extension   |
+| `difftime()`        | Yes       | src/time/difftime.c       | Just subtracts two time_t values, pure userland | C89   |
+| ... etc.            | ...       | ...                        | Many more small helpers...           | ...                     |
+
 
 ## Process and Thread Management (~70 func)
 
