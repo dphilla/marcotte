@@ -59,6 +59,14 @@ typedef union _G_fpos64_t {
 	double __align;
 } fpos_t;
 
+/* Our custom FILE structure. */
+typedef struct _FILE {
+    int fd;
+    int eof;
+    int error;
+    /* You could add buffer pointers, etc. here. */
+} FILE;
+
 extern FILE *const stdin;
 extern FILE *const stdout;
 extern FILE *const stderr;
@@ -67,15 +75,7 @@ extern FILE *const stderr;
 #define stdout (stdout)
 #define stderr (stderr)
 
-For example:
 FILE *fopen(const char *__restrict, const char *__restrict);
-
-All inside a single wasm mod (for now)
- -- would be translated to (the "how" details below)
-
-
-
-
 FILE *freopen(const char *__restrict, const char *__restrict, FILE *__restrict);
 int fclose(FILE *);
 
