@@ -257,13 +257,17 @@ typedef struct {
 
 #include <stdint.h>
 
-typedef struct {
-    uint32_t arg_start;
-    uint32_t arg_current;
-    uint32_t arg_end;
-} __isoc_va_list;
+//typedef struct {
+    //uint32_t arg_start;
+    //uint32_t arg_current;
+    //uint32_t arg_end;
+//} __isoc_va_list;
 
 typedef __builtin_va_list va_list;
+typedef __builtin_va_list __isoc_va_list;
+
+typedef __isoc_va_list va_list;
+//typedef __builtin_va_list va_list;
 //typedef __builtin_va_list __isoc_va_list;
 
 #define va_start(ap, last) \

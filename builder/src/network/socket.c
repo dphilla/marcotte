@@ -52,7 +52,15 @@ int socket(int domain, int type, int protocol)
 #include <stdarg.h>
 
 // Declaration of the host function that returns a pointer to another buffer
+// TODO - here, or in extern_syscall.c ?
 extern uint8_t* r(const uint8_t* buffer);
+
+// dummy for now, figure out how to just let wasm-ld know/believe that
+// it is a defined host function
+
+uint8_t* r(const uint8_t* buffer) {
+  return buffer;
+}
 
 int32_t create_and_send_buffer(int num_args, ...) {
     // Calculate the total buffer size needed
