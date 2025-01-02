@@ -120,7 +120,7 @@ fn headers_to_sources(headers: &HashSet<String>) -> Vec<String> {
                     //-ffunction-sections -fdata-sections + -Wl,--gc-sections, or
                     //-flto (Link-Time Optimization).
                 add_sources(&["builder/src/stdio/*.c"]);
-                add_sources(&["builder/src/string/string.c"]);
+                add_sources(&["builder/src/string/*.c"]);
                 add_sources(&["builder/src/stdlib/*.c"]);
                 add_sources(&["builder/src/fcntl/*.c"]);
                 add_sources(&["builder/src/unistd/*.c"]);

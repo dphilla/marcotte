@@ -71,7 +71,6 @@ Which libc is this? TL;DR: it's a combo of mostly musl, some glibc, and other cr
 | `inet_netof()`        |           |                                          |       |
 | `inet_network()`      |           |                                          |       |
 
-
 ## Filesystem (~140 funcs)
 
 | **Function**      | **Supported** | **Header/Src**                       | **Notes**                                                                           |
@@ -179,22 +178,6 @@ Which libc is this? TL;DR: it's a combo of mostly musl, some glibc, and other cr
 | **copy_file_range** | Stub        | `<unistd.h>` / not shown                | Not implemented.                                                                |
 | **linkat2**       | Stub          | Not standard POSIX, ignoring.           | -                                                                                |
 
-
-## Self-Contained (requires no kernel interactions.. mostly, ~400 functions)
-| Function              | Supported | Source       | Notes | Original Reference       |
-|-----------------------|-----------|--------------|-------|--------------------------|
-| `sin()`               |           |              |       |                          |
-| `cos()`               |           |              |       |                          |
-| `tan()`               |           |              |       |                          |
-| `memcpy()`            |           |              |       |                          |
-| `memset()`            |           |              |       |                          |
-| `strcmp()`            |           |              |       |                          |
-| `strlen()`            |           |              |       |                          |
-| `isalpha()`           |           |              |       |                          |
-| `isdigit()`           |           |              |       |                          |
-| `qsort()`             |           |              |       |                          |
-| `bsearch()`           |           |              |       |                          |
-|                       |           |              |       |                          |
 
 ## Self-Contained (requires no kernel interactions.. mostly, ~400 functions)
 
