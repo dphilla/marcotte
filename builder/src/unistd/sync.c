@@ -1,7 +1,6 @@
 #include <unistd.h>
-int sync(void)
+void sync(void)
 {
     /* no-op in in-memory VFS. */
-    return 0;
 }
 

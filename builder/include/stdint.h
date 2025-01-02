@@ -17,7 +17,9 @@
 #define __NEED_intmax_t
 #define __NEED_uintmax_t
 
+//added for wasm types
 #include <bits/alltypes.h>
+#include <bits/stdint.h>
 
 typedef int8_t int_fast8_t;
 typedef int64_t int_fast64_t;

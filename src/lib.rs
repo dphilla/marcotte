@@ -116,50 +116,27 @@ fn headers_to_sources(headers: &HashSet<String>) -> Vec<String> {
     };
 
     for h in headers {
-        match h.as_str() {
-            "stdio.h" => {
+                //TODO - add opt to remove unused code
+                    //-ffunction-sections -fdata-sections + -Wl,--gc-sections, or
+                    //-flto (Link-Time Optimization).
                 add_sources(&["builder/src/stdio/*.c"]);
-            }
-            "string.h" => {
                 add_sources(&["builder/src/string/string.c"]);
-            }
-            "stdlib.h" => {
                 add_sources(&["builder/src/stdlib/*.c"]);
-            }
-            "fcntl.h" => {
                 add_sources(&["builder/src/fcntl/*.c"]);
-            }
-            "unistd.h" => {
                 add_sources(&["builder/src/unistd/*.c"]);
-            }
-            "dirent.h" => {
                 add_sources(&["builder/src/dirent/*.c"]);
-            }
-            "sys/stat.h" => {
                 add_sources(&["builder/src/sys/stat/*.c"]);
-            }
-            "sys/file.h" => {
                 add_sources(&["builder/src/sys/file/*.c"]);
-            }
-            "sys/mman.h" => {
                 add_sources(&["builder/src/sys/mman/*.c"]);
-            }
-            "sys/mount.h" => {
                 add_sources(&["builder/src/sys/mount/*.c"]);
-            }
-            "utime.h" => {
+                add_sources(&["builder/src/errno/*.c"]);
                 add_sources(&["builder/src/utime/*.c"]);
-            }
-            "sys/socket.h" => {
                 // For networking
                 add_sources(&["builder/src/network/socket.c"]);
-            }
             // etc.
 
             // If your code requires always linking in extern_syscall.c or r.c
             // for certain headers, do that here. Or you can always add them.
-            _ => {}
-        }
     }
 
     // Optionally ALWAYS add extern_syscall.c or r.c if your environment requires them.
@@ -187,13 +164,13 @@ fn build_makefile_contents(
 r#"# Auto-generated Makefile for Marcotte (Selective Build)
 
 CC = {cc}
-CFLAGS = --target=wasm32 -Ibuilder/include -nostdlib -O3
+CFLAGS = --target=wasm32 -Ibuilder/include -nostdlib -O3 -w
 LDFLAGS = -Wl,--no-entry -Wl,--export-all
 
 all: build
 
 build:
-	$(CC) $(CFLAGS) $(LDFLAGS) -o {out_wasm} {marcotte_c_files} {user_files}
+	$(CC) $(CFLAGS) $(LDFLAGS) -o {out_wasm} {marcotte_c_files} {user_files} wasm_vfs.o
 
 clean:
 	rm -f {out_wasm}

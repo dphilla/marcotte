@@ -19,7 +19,7 @@ ____  | '_ ` _ \ / _` | '__/ __/ _ \| __| __/ _ \  ____
 ____  | | | | | | (_| | | | (_| (_) | |_| ||  __/  ____
       |_| |_| |_|\__,_|_|  \___\___/ \__|\__\___|     "#;
         println!("{}", multiline_str);
-        println!("\n- Generate System Layers for your Wasm Applications - ");
+        println!("\n- Generate System Layers - ");
         println!("\n");
 
         println!(" marcotte (alias: mct) [args] --[flag]");

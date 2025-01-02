@@ -1,4 +1,6 @@
 #include <sys/socket.h>
+#include <stdarg.h>
+
   // host func r() that takes a buffer, and returns a Wasm pointer to a buffer
   //
   // - rules for buffers:
@@ -33,11 +35,15 @@
 //      Here, the second value in the returned buffer would be the changed input timeval struct,
 //      which would then need to replace the value of the original passed in tv, but retaining the
 //      same pointer, so the user has no idea the difference :)
+
+//TODO - defined elsewhere
+static int32_t create_and_send_buffer(int num_args, ...);
+
 int socket(int domain, int type, int protocol)
 {
     int32_t result = create_and_send_buffer(3, domain, type, protocol);
 
-    return result
+    return result;
 }
 
 #include <stdio.h>

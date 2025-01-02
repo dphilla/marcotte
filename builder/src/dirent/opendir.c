@@ -3,11 +3,12 @@
 #include <stdlib.h>     /* malloc() */
 #include <string.h>     /* memset() */
 #include <unistd.h>     /* open() */
+#include "wasm_vfs_ffi.h"
 
 DIR *opendir(const char *name)
 {
     /* TODO - double check this : Typically open() with O_DIRECTORY. */
-    int fd = open(name, O_RDONLY, 0);
+    int fd = wasm_vfs_open(name, O_RDONLY, 0);
     if (fd < 0) return NULL;
 
     DIR *dirp = (DIR*)malloc(sizeof(DIR));

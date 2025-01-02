@@ -1,6 +1,11 @@
 #ifndef _ALLTYPES_H
 #define _ALLTYPES_H
 
+//TODO - this is too confusing, RM this, or just leave a note here describing include/bits/alltypes
+
+//This is here for historical reasons, to match musls arch/<arch>/bits/alltypes pattern
+// a copy for use in in include/alltypes.h
+
 /*
  * Indicate we are using 64-bit time syscalls internally (e.g., time64).
  * In musl, _REDIR_TIME64 is used to redirect older 32-bit time calls
@@ -150,3 +155,29 @@ typedef struct {
 
 #endif /* _ALLTYPES_H */
 
+
+typedef struct {
+    uint32_t arg_start;
+    uint32_t arg_current;
+    uint32_t arg_end;
+} __isoc_va_list;
+
+#define va_start(ap, last) \
+    do { \
+        (ap).arg_start = (uint32_t)&(last) + sizeof(last); \
+        (ap).arg_current = (ap).arg_start; \
+    } while (0)
+
+#define va_arg(ap, type) \
+    ({ \
+        type *arg_ptr = (type *)(ap.arg_current); \
+        (ap).arg_current += sizeof(type); \
+        *arg_ptr; \
+    })
+
+#define va_end(ap) \
+    do { \
+        (ap).arg_start = (ap).arg_current = 0; \
+    } while (0)
+
+//__builtin_va_list

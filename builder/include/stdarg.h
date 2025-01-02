@@ -5,17 +5,20 @@
 extern "C" {
 #endif
 
-#define __NEED_va_list
-
 #include <bits/alltypes.h>
 
-#define va_start(v,l)   __builtin_va_start(v,l)
-#define va_end(v)       __builtin_va_end(v)
-#define va_arg(v,l)     __builtin_va_arg(v,l)
-#define va_copy(d,s)    __builtin_va_copy(d,s)
+/*
+ * Now define the standard macros that call the Clang intrinsics:
+ * For example:
+ */
+#define va_start(ap, last)  __builtin_va_start(ap, last)
+#define va_end(ap)          __builtin_va_end(ap)
+#define va_arg(ap, type)    __builtin_va_arg(ap, type)
+#define va_copy(d, s)       __builtin_va_copy(d, s)
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif
+#endif /* _STDARG_H */
+
