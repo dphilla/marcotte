@@ -129,8 +129,10 @@ fn headers_to_sources(headers: &HashSet<String>) -> Vec<String> {
                 add_sources(&["builder/src/sys/file/*.c"]);
                 add_sources(&["builder/src/sys/mman/*.c"]);
                 add_sources(&["builder/src/sys/mount/*.c"]);
+                add_sources(&["builder/src/sys/mount/*.c"]);
                 add_sources(&["builder/src/errno/*.c"]);
                 add_sources(&["builder/src/utime/*.c"]);
+                add_sources(&["builder/src/network/*.c"]);
                 // For networking
                 add_sources(&["builder/src/network/socket.c"]);
             // etc.
@@ -170,7 +172,7 @@ LDFLAGS = -Wl,--no-entry -Wl,--export-all
 all: build
 
 build:
-	$(CC) $(CFLAGS) $(LDFLAGS) -o {out_wasm} {marcotte_c_files} {user_files} wasm_vfs.o
+	$(CC) $(CFLAGS) $(LDFLAGS) -o {out_wasm} {marcotte_c_files} {user_files} libwasm_vfs.a
 
 clean:
 	rm -f {out_wasm}
@@ -179,7 +181,7 @@ clean:
         cc = compiler,
         out_wasm = out_wasm,
         marcotte_c_files = marcotte_c_files,
-        user_files = user_c_files.join(" ")
+         ser_files = user_c_files.join(" ")
     )
 }
 
