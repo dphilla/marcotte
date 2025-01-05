@@ -6,70 +6,69 @@ Which libc is this? TL;DR: it's a combo of mostly musl, some glibc, and other cr
 
 ## Networking (~65 funcs)
 
-| Function              | Supported | Source                                   | Notes |
-|-----------------------|-----------|------------------------------------------|-------|
-| `socket()`            |Yes        | [header](sys/socket.h)/[src](src/network/socket.c) |       |
-| `bind()`              |           |                                          |       |
-| `connect()`           |           |                                          |       |
-| `listen()`            |           |                                          |       |
-| `accept()`            |           |                                          |       |
-| `accept4()`           |           |                                          |       |
-| `recv()`              |           |                                          |       |
-| `send()`              |           |                                          |       |
-| `recvfrom()`          |           |                                          |       |
-| `sendto()`            |           |                                          |       |
-| `recvmsg()`           |           |                                          |       |
-| `sendmsg()`           |           |                                          |       |
-| `getaddrinfo()`       |           |                                          |       |
-| `freeaddrinfo()`      |           |                                          |       |
-| `getnameinfo()`       |           |                                          |       |
-| `poll()`              |           |                                          |       |
-| `select()`            |           |                                          |       |
-| `shutdown()`          |           |                                          |       |
-| `setsockopt()`        |           |                                          |       |
-| `getsockopt()`        |           |                                          |       |
-| `inet_aton()`         |           |                                          |       |
-| `inet_ntoa()`         |           |                                          |       |
-| `inet_pton()`         |           |                                          |       |
-| `inet_ntop()`         |           |                                          |       |
-| `gethostname()`       |           |                                          |       |
-| `gethostbyname()`     |           |                                          | Deprecated, use `getaddrinfo()` instead |
-| `gethostbyaddr()`     |           |                                          | Deprecated, use `getaddrinfo()` instead |
-| `socketpair()`        |           |                                          |       |
-| `ioctl()`             |           |                                          | Often used for socket control            |
-| `fcntl()`             |           |                                          |       |
-| `epoll_create()`      |           |                                          | Linux-specific |
-| `epoll_create1()`     |           |                                          | Linux-specific |
-| `epoll_ctl()`         |           |                                          | Linux-specific |
-| `epoll_wait()`        |           |                                          | Linux-specific |
-| `eventfd()`           |           |                                          | Linux-specific |
-| `getpeername()`       |           |                                          |       |
-| `getsockname()`       |           |                                          |       |
-| `sendfile()`          |           |                                          |       |
-| `readv()`             |           |                                          |       |
-| `writev()`            |           |                                          |       |
-| `splice()`            |           |                                          |       |
-| `tee()`               |           |                                          | Linux-specific |
-| `vmsplice()`          |           |                                          | Linux-specific |
-| `getifaddrs()`        |           |                                          | Requires `<ifaddrs.h>` |
-| `freeifaddrs()`       |           |                                          | Requires `<ifaddrs.h>` |
-| `if_nametoindex()`    |           |                                          | Requires `<net/if.h>` |
-| `if_indextoname()`    |           |                                          | Requires `<net/if.h>` |
-| `if_nameindex()`      |           |                                          | Requires `<net/if.h>` |
-| `if_freenameindex()`  |           |                                          | Requires `<net/if.h>` |
-| `pselect()`           |           |                                          |       |
-| `epoll_pwait()`       |           |                                          | Linux-specific |
-| `sendmmsg()`          |           |                                          | Linux-specific |
-| `recvmmsg()`          |           |                                          | Linux-specific |
-| `getprotobyname()`    |           |                                          |       |
-| `getprotobynumber()`  |           |                                          |       |
-| `getservbyname()`     |           |                                          |       |
-| `getservbyport()`     |           |                                          |       |
-| `hstrerror()`         |           |                                          | Obsolete for modern use |
-| `inet_makeaddr()`     |           |                                          |       |
-| `inet_lnaof()`        |           |                                          |       |
-| `inet_netof()`        |           |                                          |       |
-| `inet_network()`      |           |                                          |       |
+| Function              | Supported | Source                                                | Notes                                                       |
+|-----------------------|-----------|-------------------------------------------------------|-------------------------------------------------------------|
+| `socket()`            | Yes       | [header](sys/socket.h) / [src](src/network/socket.c) | Standard done previously                                    |
+| `bind()`              | Yes       | [src](src/network/bind.c)                             |                                                             |
+| `connect()`           | Yes       | [src](src/network/connect.c)                          |                                                             |
+| `listen()`            | Yes       | [src](src/network/listen.c)                           |                                                             |
+| `accept()`            | Yes       | [src](src/network/accept.c)                           | Complex pointer out for addr                                |
+| `accept4()`           | Yes       | [src](src/network/accept4.c)                          | Same pattern as accept + flags                              |
+| `recv()`              | Yes       | [src](src/network/recv.c)                             | Mapped to `SYS_recvfrom` approach                           |
+| `send()`              | Yes       | [src](src/network/send.c)                             | Mapped to `SYS_sendto` approach                             |
+| `recvfrom()`          | Yes       | [src](src/network/recvfrom.c)                         |                                                             |
+| `sendto()`            | Yes       | [src](src/network/sendto.c)                           |                                                             |
+| `recvmsg()`           | Yes       | [src](src/network/recvmsg.c)                          | Simplified for `struct msghdr`                              |
+| `sendmsg()`           | Yes       | [src](src/network/sendmsg.c)                          | Simplified for `struct msghdr`                              |
+| `getaddrinfo()`       | Yes       | [src](src/network/getaddrinfo.c)                      | Fake/facade logic, real DNS off-host                        |
+| `freeaddrinfo()`      | Yes       | [src](src/network/freeaddrinfo.c)                     | Stub                                                        |
+| `getnameinfo()`       | Yes       | [src](src/network/getnameinfo.c)                      | Fake/facade logic                                           |
+| `poll()`              | Yes       | [src](src/network/poll.c)                             | In/out pointer for `struct pollfd` array                    |
+| `select()`            | Yes       | [src](src/network/select.c)                           | In/out `fd_set`, simplified                                 |
+| `shutdown()`          | Yes       | [src](src/network/shutdown.c)                         |                                                             |
+| `setsockopt()`        | Yes       | [src](src/network/setsockopt.c)                       | Some details simplified                                     |
+| `getsockopt()`        | Yes       | [src](src/network/getsockopt.c)                       | Some details simplified                                     |
+| `inet_aton()`         | Yes       | [src](src/network/inet_aton.c)                        | Fake/facade for text->`in_addr`                             |
+| `inet_ntoa()`         | Yes       | [src](src/network/inet_ntoa.c)                        | Similar approach                                            |
+| `inet_pton()`         | Yes       | [src](src/network/inet_pton.c)                        |                                                             |
+| `inet_ntop()`         | Yes       | [src](src/network/inet_ntop.c)                        |                                                             |
+| `gethostname()`       | Yes       | [src](src/network/gethostname.c)                      | Fake/facade                                                 |
+| `socketpair()`        | Yes       | [src](src/network/socketpair.c)                       | Possibly incomplete example, see notes                      |
+| `ioctl()`             | Yes       | [src](src/network/ioctl.c)                            | Variation for varargs, partial                              |
+| `fcntl()`             | No       | [src](src/network/fcntl.c)                            | Similar partial approach                                    |
+| `epoll_create()`      | Yes       | [src](src/network/epoll_create.c)                     | Linux-specific                                              |
+| `epoll_create1()`     | Yes       | [src](src/network/epoll_create1.c)                    | Linux-specific                                              |
+| `epoll_ctl()`         | Yes       | [src](src/network/epoll_ctl.c)                        | Linux-specific, partial usage                               |
+| `epoll_wait()`        | Yes       | [src](src/network/epoll_wait.c)                       | Linux-specific                                              |
+| `eventfd()`           | Yes       | [src](src/network/eventfd.c)                          | Linux-specific, partial                                     |
+| `getpeername()`       | Yes       | [src](src/network/getpeername.c)                      | Similar to `getsockname`                                    |
+| `getsockname()`       | Yes       | [src](src/network/getsockname.c)                      | Implementation above                                        |
+| `sendfile()`          | Yes       | [src](src/network/sendfile.c)                         | Provided above                                              |
+| `readv()`             | Yes       | [src](src/network/readv.c)                            | Implementation above                                        |
+| `writev()`            | Yes       | [src](src/network/writev.c)                           | Similar to `readv`                                          |
+| `splice()`            | No       | [src](src/network/splice.c)                           | Linux-specific, partial approach                            |
+| `tee()`               | No       | [src](src/network/tee.c)                              | Linux-specific                                              |
+| `vmsplice()`          | No       | [src](src/network/vmsplice.c)                         | Linux-specific                                              |
+| `getifaddrs()`        | No       | [src](src/network/getifaddrs.c)                       | Stub/fake, requires `<ifaddrs.h>`                           |
+| `freeifaddrs()`       | Yes       | [src](src/network/freeifaddrs.c)                      | Stub/fake, requires `<ifaddrs.h>`                           |
+| `if_nametoindex()`    | Yes       | [src](src/network/if_nametoindex.c)                   | Requires `<net/if.h>`, partial                              |
+| `if_indextoname()`    | Yes       | [src](src/network/if_indextoname.c)                   | Requires `<net/if.h>`, partial                              |
+| `if_nameindex()`      | No       | [src](src/network/if_nameindex.c)                     | Requires `<net/if.h>`, partial                              |
+| `if_freenameindex()`  | Yes       | [src](src/network/if_freenameindex.c)                 | Requires `<net/if.h>`, partial                              |
+| `pselect()`           | No       | [src](src/network/pselect.c)                          | Similar to `select`                                         |
+| `epoll_pwait()`       | Yes       | [src](src/network/epoll_pwait.c)                      | Linux-specific                                              |
+| `sendmmsg()`          | No       | [src](src/network/sendmmsg.c)                         | Linux-specific, partial for msghdr array                    |
+| `recvmmsg()`          | No       | [src](src/network/recvmmsg.c)                         | Linux-specific, partial for msghdr array                    |
+| `getprotobyname()`    | No       | [src](src/network/getprotobyname.c)                   | Old library call, partial stub                              |
+| `getprotobynumber()`  | No       | [src](src/network/getprotobynumber.c)                 | Old library call, partial stub                              |
+| `getservbyname()`     | No       | [src](src/network/getservbyname.c)                    | Old library call, partial stub                              |
+| `getservbyport()`     | No       | [src](src/network/getservbyport.c)                    | Old library call, partial stub                              |
+| `hstrerror()`         | No       | [src](src/network/hstrerror.c)                        | Obsolete, partial stub                                      |
+| `inet_makeaddr()`     | Yes       | [src](src/network/inet_makeaddr.c)                    | IPv4 creation, partial library code                         |
+| `inet_lnaof()`        | Yes       | [src](src/network/inet_lnaof.c)                       |                                                             |
+| `inet_netof()`        | No       | [src](src/network/inet_netof.c)                       |                                                             |
+| `inet_network()`      | No       | [src](src/network/inet_network.c)                     |                                                             |
+
 
 ## Filesystem (~140 funcs)
 
@@ -388,6 +387,19 @@ Which libc is this? TL;DR: it's a combo of mostly musl, some glibc, and other cr
 | `difftime()`        | Yes       | src/time/difftime.c       | Just subtracts two time_t values, pure userland | C89   |
 | ... etc.            | ...       | ...                        | Many more small helpers...           | ...                     |
 
+
+# Harder, below
+------------------------------------
+HOW TO KILL: START HERE:
+  - make boxer cli usable with above, all functions
+
+  - make networking work, in browser, plans for how-to-do on server, write down exact steps for plugin
+
+  - make all self contained funcs in marcotte, and workable in boxer
+
+  - make plan for all others, and Architect-Wasm (start prototype)
+  - make plans for rest of week: all functions below, and how to find and implement those that may
+    be missing, and how to test them all when done.
 
 ## Process and Thread Management (~70 func)
 
