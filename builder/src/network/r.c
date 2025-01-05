@@ -27,6 +27,9 @@
 //      or NULL on error.
 //
 // You could rename it or expand it as needed.
+
+__attribute__((import_module("env"), import_name("r")))
+
 extern uint8_t* r(const uint8_t* buffer, size_t length, size_t* out_response_len);
 
 /**

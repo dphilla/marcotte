@@ -121,6 +121,7 @@ fn headers_to_sources(headers: &HashSet<String>) -> Vec<String> {
                     //-flto (Link-Time Optimization).
                 add_sources(&["builder/src/stdio/*.c"]);
                 add_sources(&["builder/src/string/*.c"]);
+                add_sources(&["builder/src/strings/*.c"]);
                 add_sources(&["builder/src/stdlib/*.c"]);
                 add_sources(&["builder/src/fcntl/*.c"]);
                 add_sources(&["builder/src/unistd/*.c"]);
@@ -133,6 +134,7 @@ fn headers_to_sources(headers: &HashSet<String>) -> Vec<String> {
                 add_sources(&["builder/src/errno/*.c"]);
                 add_sources(&["builder/src/utime/*.c"]);
                 add_sources(&["builder/src/network/*.c"]);
+                add_sources(&["builder/src/network/arpa/*.c"]);
                 // For networking
             // etc.
 
@@ -161,6 +163,7 @@ fn build_makefile_contents(
     // Detect compiler (simplistic approach)
     let compiler = detect_compiler();
 
+    // careful with LD flags --allow-undefined doesnt tell whats not defined and just builds!
     format!(
 r#"# Auto-generated Makefile for Marcotte (Selective Build)
 
