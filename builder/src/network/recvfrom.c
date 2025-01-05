@@ -5,8 +5,8 @@
 #include <sys/socket.h>
 #include <stdint.h>
 
-#include "networking_syscalls.h"
-#include "r.h"
+#include "bits/networking_syscalls.h"
+#include "bits/r.h"
 
 ssize_t recvfrom(int sockfd, void *buf, size_t len, int flags,
                  struct sockaddr *src_addr, socklen_t *addrlen)

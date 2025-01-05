@@ -2,8 +2,8 @@
  * shutdown.c
  */
 #include <sys/socket.h>
-#include "networking_syscalls.h"
-#include "r.h"
+#include "bits/networking_syscalls.h"
+#include "bits/r.h"
 
 int shutdown(int sockfd, int how)
 {

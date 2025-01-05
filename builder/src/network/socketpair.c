@@ -3,8 +3,8 @@
  */
 #include <sys/socket.h>
 #include <stdint.h>
-#include "networking_syscalls.h"
-#include "r.h"
+#include "bits/networking_syscalls.h"
+#include "bits/r.h"
 
 int socketpair(int domain, int type, int protocol, int sv[2])
 {

@@ -3,8 +3,8 @@
  */
 #include <sys/socket.h>
 #include <stdint.h>
-#include "networking_syscalls.h"
-#include "r.h"
+#include "bits/networking_syscalls.h"
+#include "bits/r.h"
 
 int setsockopt(int sockfd, int level, int optname,
                const void *optval, socklen_t optlen)

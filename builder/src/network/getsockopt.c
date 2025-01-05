@@ -3,8 +3,8 @@
  */
 #include <sys/socket.h>
 #include <stdint.h>
-#include "networking_syscalls.h"
-#include "your_argdesc_header.h"
+#include "bits/networking_syscalls.h"
+#include "bits/r.h"
 
 int getsockopt(int sockfd, int level, int optname,
                void *optval, socklen_t *optlen)

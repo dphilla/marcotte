@@ -1,32 +1,29 @@
-// These are typically library calls that do textual conversions, not real syscalls
 /**
- * inet_aton.c
+ * inet_ntoa.c
  */
-#include <arpa/inet.h>
-#include "networking_syscalls.h"
-#include "r.h"
+#include <arpa/inet.h>   // for struct in_addr
+#include "bits/r.h"      // ArgDesc, etc.
 
-int inet_ntoa(const char *cp, struct in_addr *inp)
+// The musl declaration is `char *inet_ntoa(struct in_addr in);`
+char *inet_ntoa(struct in_addr in)
 {
-    // A library function that converts text to an in_addr.
-    // We'll do a 'fake' syscall approach:
-    ArgDesc args[3];
-    int32_t fake_sysno = 999997;
+    // Typically returns a pointer to a static buffer or so.
+    // For your Marcotte approach, you'd do a "fake" system call or local logic:
+    static char buffer[16]; // e.g. "255.255.255.255\0"
 
-    args[0].arg_type   = ARGTYPE_SCALAR;
-    args[0].size_bytes = 4;
-    args[0].data_ptr   = &fake_sysno;
+    // For example, do an ArgDesc call with the 32-bit address:
+    // but let's just do a minimal placeholder:
+    // ...
+    // Then fill `buffer` with the dotted-decimal form.
 
-    size_t cplen = cp ? (strlen(cp)+1) : 0;
-    args[1].arg_type   = ARGTYPE_PTR_IN;
-    args[1].size_bytes = cplen;
-    args[1].data_ptr   = (void*)cp;
+    // For demonstration, let's pretend:
+    unsigned long addr = in.s_addr;
+    // do real numeric -> dotted logic or call your proxy.
 
-    args[2].arg_type   = ARGTYPE_PTR_OUT;
-    args[2].size_bytes = sizeof(struct in_addr);
-    args[2].data_ptr   = inp;
+    // PSE:
+    // ArgDesc args[2], call, server returns string, copy to buffer, etc.
 
-    int ret = create_and_send_buffer_ext(3, args);
-    return (ret == 1) ? 1 : 0; // typically returns 1 on success, 0 on failure
+    // Return pointer to static.
+    return buffer;
 }
 

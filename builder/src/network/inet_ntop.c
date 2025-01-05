@@ -3,8 +3,9 @@
  * inet_pron.c
  */
 #include <arpa/inet.h>
-#include "networking_syscalls.h"
-#include "r.h"
+#include <string.h>
+#include "bits/networking_syscalls.h"
+#include "bits/r.h"
 
 int ntop(const char *cp, struct in_addr *inp)
 {

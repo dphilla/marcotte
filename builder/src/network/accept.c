@@ -8,8 +8,8 @@
 #include <sys/socket.h>
 #include <stdint.h>
 #include <string.h>
-#include "networking_syscalls.h"
-#include "r.h"
+#include "bits/networking_syscalls.h"
+#include "bits/r.h"
 
 int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen)
 {

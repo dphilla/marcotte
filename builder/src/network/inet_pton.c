@@ -1,32 +1,39 @@
-// These are typically library calls that do textual conversions, not real syscalls
 /**
- * inet_pron.c
+ * inet_pton.c
  */
 #include <arpa/inet.h>
-#include "networking_syscalls.h"
-#include "r.h"
+#include <string.h>
+#include "bits/networking_syscalls.h"
+#include "bits/r.h"
 
-int inet_pton(const char *cp, struct in_addr *inp)
+int inet_pton(int af, const char *src, void *dst)
 {
-    // A library function that converts text to an in_addr.
-    // We'll do a 'fake' syscall approach:
-    ArgDesc args[3];
-    int32_t fake_sysno = 999997;
+    // your ArgDesc approach
+    // for demonstration:
+    ArgDesc args[4];
+    int32_t fake_sysno = 999; // or real if you have a custom
 
     args[0].arg_type   = ARGTYPE_SCALAR;
     args[0].size_bytes = 4;
     args[0].data_ptr   = &fake_sysno;
 
-    size_t cplen = cp ? (strlen(cp)+1) : 0;
-    args[1].arg_type   = ARGTYPE_PTR_IN;
-    args[1].size_bytes = cplen;
-    args[1].data_ptr   = (void*)cp;
+    args[1].arg_type   = ARGTYPE_SCALAR;
+    args[1].size_bytes = 4;
+    args[1].data_ptr   = &af;
 
-    args[2].arg_type   = ARGTYPE_PTR_OUT;
-    args[2].size_bytes = sizeof(struct in_addr);
-    args[2].data_ptr   = inp;
+    size_t len = src ? (strlen(src) + 1) : 0;
+    args[2].arg_type   = ARGTYPE_PTR_IN;
+    args[2].size_bytes = len;
+    args[2].data_ptr   = (void*)src;
 
-    int ret = create_and_send_buffer_ext(3, args);
-    return (ret == 1) ? 1 : 0; // typically returns 1 on success, 0 on failure
+    // dst is a pointer out
+    // If AF_INET => 4 bytes, AF_INET6 => 16 bytes, etc.
+    // You can guess from `af` or pass a max like 16
+    args[3].arg_type   = ARGTYPE_PTR_OUT;
+    args[3].size_bytes = (af == AF_INET6) ? 16 : 4;
+    args[3].data_ptr   = dst;
+
+    int ret = create_and_send_buffer_ext(4, args);
+    return ret;
 }
 

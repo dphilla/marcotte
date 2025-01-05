@@ -2,8 +2,8 @@
  * epoll_create.c
  */
 #include <sys/epoll.h>
-#include "networking_syscalls.h"
-#include "r.h"
+#include "bits/networking_syscalls.h"
+#include "bits/r.h"
 
 int epoll_create1(int size)
 {

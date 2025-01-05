@@ -25,6 +25,13 @@ extern "C" {
 #define __NEED_clock_t
 #define __NEED_sigset_t
 
+#ifndef __DEFINED_pthread_attr_t
+#define __DEFINED_pthread_attr_t
+typedef struct {
+    int __dummy;
+} pthread_attr_t;
+#endif
+
 #include <bits/alltypes.h>
 
 #define SIG_BLOCK     0
@@ -228,7 +235,9 @@ int sigtimedwait(const sigset_t *__restrict, siginfo_t *__restrict, const struct
 int sigqueue(pid_t, int, union sigval);
 
 int pthread_sigmask(int, const sigset_t *__restrict, sigset_t *__restrict);
-int pthread_kill(pthread_t, int);
+
+//TODO
+//int pthread_kill(pthread_t, int);
 
 void psiginfo(const siginfo_t *, const char *);
 void psignal(int, const char *);

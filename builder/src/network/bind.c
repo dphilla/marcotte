@@ -1,31 +1,41 @@
 /**
  * bind.c
- *
- * TODO: Implement the Marcotte proxying for bind()
- * following the pattern with create_and_send_buffer_ext(...)
- * and the correct syscall number from networking_syscalls.h.
  */
-
-#include <errno.h>     // or other needed headers
-#include <sys/types.h> // if needed
-#include <stdio.h>
-#include <stdlib.h>
+#include <sys/socket.h>
+#include <errno.h>
+#include <stddef.h>  // for size_t
+#include <stdint.h>
 #include <string.h>
 
-#include "networking_syscalls.h" // for SYS_* definitions
-// #include "your_argdesc_header.h" // for ArgDesc, create_and_send_buffer_ext, etc.
+#include "bits/networking_syscalls.h"
+#include "bits/r.h"  // ArgDesc, create_and_send_buffer_ext
 
-int bind(...)
+int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen)
 {
-    // Pseudocode:
-    // ArgDesc args[...];
-    // fill in args[0] with (ARGTYPE_SCALAR = SYS_..., etc.)
-    // fill in pointer/inout arguments
-    // int result = create_and_send_buffer_ext(num_args, args);
-    // return result;
+    ArgDesc args[4];
 
-    // Temporary stub:
-    errno = ENOSYS; // "Function not implemented"
-    return -1;
+    int32_t sysno = SYS_bind;
+    args[0].arg_type   = ARGTYPE_SCALAR;
+    args[0].size_bytes = sizeof(int32_t);
+    args[0].data_ptr   = &sysno;
+
+    // sockfd as SCALAR
+    args[1].arg_type   = ARGTYPE_SCALAR;
+    args[1].size_bytes = sizeof(int32_t);
+    args[1].data_ptr   = (void*)&sockfd;
+
+    // address pointer as PTR_IN
+    args[2].arg_type   = ARGTYPE_PTR_IN;
+    args[2].size_bytes = addrlen;
+    args[2].data_ptr   = (void*)addr;
+
+    // addrlen as SCALAR
+    args[3].arg_type   = ARGTYPE_SCALAR;
+    args[3].size_bytes = sizeof(socklen_t);
+    args[3].data_ptr   = (void*)&addrlen;
+
+    int ret = create_and_send_buffer_ext(4, args);
+    return ret;
 }
+
 

@@ -2,8 +2,8 @@
  * freeaddrinfo.c
  */
 #include <netdb.h>
-#include "networking_syscalls.h"
-#include "r.h"
+#include "bits/networking_syscalls.h"
+#include "bits/r.h"
 
 void freeaddrinfo(struct addrinfo *res)
 {

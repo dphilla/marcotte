@@ -3,8 +3,9 @@
  * inet_aton.c
  */
 #include <arpa/inet.h>
-#include "networking_syscalls.h"
-#include "your_argdesc_header.h"
+#include <string.h>
+#include "bits/networking_syscalls.h"
+#include "bits/r.h"
 
 int inet_aton(const char *cp, struct in_addr *inp)
 {

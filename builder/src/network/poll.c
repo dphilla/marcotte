@@ -2,8 +2,8 @@
  * poll.c
  */
 #include <poll.h>
-#include "networking_syscalls.h"
-#include "r.h"
+#include "bits/networking_syscalls.h"
+#include "bits/r.h"
 
 int poll(struct pollfd *fds, nfds_t nfds, int timeout)
 {

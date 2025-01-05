@@ -1,5 +1,3 @@
-/*this file really lives in src/network/ for the compiler, remove ?*/
-
 /**
  * r.c
  *

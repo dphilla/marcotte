@@ -339,4 +339,29 @@ typedef long long          fsfilcnt_t;
 /* 6) Macros for pointer-sized limits, if needed. */
 /* e.g., #define SIZE_MAX  0xffffffffu on a 32-bit */
 
+
+// If your environment doesn't define 'suseconds_t', define it here.
+// Typically it's a signed integer type for microseconds.
+// In musl it is often a typedef in bits/alltypes.h.
+// We'll guess a 64-bit for simplicity:
+//typedef long suseconds_t;
+
+// Provide the real definition of struct timeval
+#ifndef __DEFINED_struct_timeval
+#define __DEFINED_struct_timeval
+struct timeval {
+    time_t tv_sec;        // seconds
+    suseconds_t tv_usec;  // microseconds
+};
+#endif
+
+// If sys/time.h references struct itimerval, define it:
+//#ifndef __DEFINED_struct_itimerval
+//#define __DEFINED_struct_itimerval
+//struct itimerval {
+    //struct timeval it_interval;
+    //struct timeval it_value;
+//};
+//#endif
+
 #endif /* _ALLTYPES_H */

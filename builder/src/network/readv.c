@@ -3,8 +3,8 @@
  */
 #include <sys/uio.h>
 #include <stdint.h>
-#include "networking_syscalls.h"
-#include "r.h"
+#include "bits/networking_syscalls.h"
+#include "bits/r.h"
 
 ssize_t readv(int fd, const struct iovec *iov, int iovcnt)
 {

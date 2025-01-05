@@ -4,8 +4,8 @@
  */
 #include <netdb.h>
 #include <string.h>
-#include "networking_syscalls.h"
-#include "your_argdesc_header.h"
+#include "bits/networking_syscalls.h"
+#include "bits/r.h"
 
 int getaddrinfo(const char *node, const char *service,
                 const struct addrinfo *hints,

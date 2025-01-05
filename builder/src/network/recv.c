@@ -6,8 +6,8 @@
 #include <stdint.h>
 #include <string.h>
 
-#include "networking_syscalls.h"
-#include "r.h"
+#include "bits/networking_syscalls.h"
+#include "bits/r.h"
 
 ssize_t recv(int sockfd, void *buf, size_t len, int flags)
 {

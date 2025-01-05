@@ -6,8 +6,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "networking_syscalls.h"
-#include "r.h"
+#include "bits/networking_syscalls.h"
+#include "bits/r.h"
 
 int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen)
 {
