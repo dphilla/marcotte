@@ -134,7 +134,6 @@ fn headers_to_sources(headers: &HashSet<String>) -> Vec<String> {
                 add_sources(&["builder/src/utime/*.c"]);
                 add_sources(&["builder/src/network/*.c"]);
                 // For networking
-                add_sources(&["builder/src/network/socket.c"]);
             // etc.
 
             // If your code requires always linking in extern_syscall.c or r.c
@@ -181,7 +180,7 @@ clean:
         cc = compiler,
         out_wasm = out_wasm,
         marcotte_c_files = marcotte_c_files,
-         ser_files = user_c_files.join(" ")
+        user_files = user_c_files.join(" ")
     )
 }
 
