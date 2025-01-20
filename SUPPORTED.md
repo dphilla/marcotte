@@ -387,20 +387,6 @@ Which libc is this? TL;DR: it's a combo of mostly musl, some glibc, and other cr
 | `difftime()`        | Yes       | src/time/difftime.c       | Just subtracts two time_t values, pure userland | C89   |
 | ... etc.            | ...       | ...                        | Many more small helpers...           | ...                     |
 
-
-# Harder, below
-------------------------------------
-HOW TO KILL: START HERE:
-  - make boxer cli usable with above, all functions
-
-  - make networking work, in browser, plans for how-to-do on server, write down exact steps for plugin
-
-  - make all self contained funcs in marcotte, and workable in boxer
-
-  - make plan for all others, and Architect-Wasm (start prototype)
-  - make plans for rest of week: all functions below, and how to find and implement those that may
-    be missing, and how to test them all when done.
-
 ## Process and Thread Management (~70 func)
 
 | Function              | Supported | Source       | Notes | Original Reference       |
