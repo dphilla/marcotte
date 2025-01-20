@@ -181,7 +181,7 @@ Which libc is this? TL;DR: it's a combo of mostly musl, some glibc, and other cr
 ## Self-Contained (requires no kernel interactions.. mostly, ~400 functions)
 
 | Function            | Supported | Source                     | Notes                               | Original Reference      |
-|-----------|----------------------------|--------------------------------------|-------------------------|
+|---------------------|-----------|---------------------------|--------------------------------------|-------------------------|
 | `acos()`            | Yes       | src/math/acos.c           | C89 math                             | C89 / C99               |
 | `acosh()`           | Yes       | src/math/acosh.c          | C99 math                             | C99                     |
 | `asin()`            | Yes       | src/math/asin.c           | C89 math                             | C89 / C99               |
