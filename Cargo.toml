@@ -1,8 +1,17 @@
 [package]
-name = "marcotte-wasm"
+name = "marcotte"
 version = "0.1.0"
 edition = "2021"
+authors = ["You <you@example.com>"]
+license = "MIT"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+# This allows `marcotte` to be used as a library too.
+[lib]
+name = "marcotte"
+path = "src/lib.rs"
 
 [dependencies]
+anyhow = "1.0"
+regex = "1.9"
+walkdir = "2.3"
+
